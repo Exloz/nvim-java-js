@@ -30,19 +30,49 @@ vim.keymap.set("n", "<C-m>", function() harpoon:list():next() end)
 
 --
 -- LSP
-keymap.set('n', '\\', '<cmd>lua vim.lsp.buf.definition()<CR>')
-keymap.set('n', '<C-\\>', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.references()<CR>')
-keymap.set('n', '<leader>i', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-keymap.set('n', '<leader>t', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
-keymap.set('v', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
+-- keymap.set('n', '\\', '<cmd>lua vim.lsp.buf.definition()<CR>')
+-- keymap.set('n', '<C-\\>', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+-- keymap.set('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+-- keymap.set('n', '<leader>r', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- keymap.set('n', '<leader>td', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+-- keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+-- keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>')
+-- keymap.set('v', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>')
+-- keymap.set('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+-- keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
+-- keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+-- keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+-- keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+local opts = { noremap = true, silent = true }
+
+-- 📌 Navegación entre definiciones e implementaciones
+keymap.set('n', '\\', '<cmd>Telescope lsp_definitions<CR>', opts)   -- Buscar definiciones con Telescope
+keymap.set('n', '<C-\\>', '<cmd>Telescope lsp_implementations<CR>', opts) -- Implementaciones con Telescope
+keymap.set('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts) -- Ir a la declaración
+
+-- 📌 Referencias y tipos
+keymap.set('n', '<leader>gr', '<cmd>Telescope lsp_references<CR>', opts) -- Buscar referencias con Telescope
+-- keymap.set('n', '<leader>td', '<cmd>Telescope lsp_type_definitions<CR>', opts) -- Definición de tipo con Telescope
+
+-- 📌 Ayuda y mejoras de código
+-- keymap.set('n', '<leader>gs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts) -- Mostrar firma de función
+keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts) -- Renombrar símbolo
+-- keymap.set('v', '<leader>gf', '<cmd>lua vim.lsp.buf.format({async = true})<CR>', opts) -- Formatear código
 keymap.set('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>')
-keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
-keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+
+-- 📌 Símbolos del archivo y del workspace con Telescope
+keymap.set('n', '<leader>tr', '<cmd>Telescope lsp_document_symbols<CR>', opts) -- Símbolos del documento
+keymap.set('n', '<leader>fj', '<cmd>Telescope git_files<CR>', opts)
+
+-- 📌 Diagnósticos con Telescope
+keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<CR>')
+keymap.set('n', '<leader>fe', function()
+  require('telescope.builtin').diagnostics({
+    severity = vim.diagnostic.severity.ERROR,  -- 🔴 Solo errores
+    cwd = vim.fn.systemlist("git rev-parse --show-toplevel")[1]  -- 📍 Limita la búsqueda al repositorio Git
+  })
+end, opts)
+
 
 
 -- Filetype-specific keymaps (these can be done in the ftplugin directory instead if you prefer)
@@ -89,4 +119,8 @@ keymap.set("n", '<leader>d?', function() local widgets = require "dap.ui.widgets
 keymap.set("n", '<leader>df', '<cmd>Telescope dap frames<cr>')
 keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
 keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
+
+-- keymap.set({ "n", "t" }, "<C-m>", function()
+--   require("nvchad.term").toggle { pos = "sp", id = "watever" }
+-- end)
 

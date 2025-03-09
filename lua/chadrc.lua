@@ -7,18 +7,29 @@ local M = {}
 
 M.base46 = {
 	theme = "onedark",
-
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+  transparent = true,
 }
 
--- M.nvdash = { load_on_startup = true }
--- M.ui = {
---       tabufline = {
---          lazyload = false
---      }
---}
+M.ui = {
+  cmp = {
+    icons_left = false,
+    style = "atom_colored",
+    format_colors = {
+      tailwind = true,
+    }
+  },
+  statusline = {
+    theme = "minimal",
+    separator_style = "round",
+  },
+  tabufline = {
+    enabled = true,
+  }
+}
+
+M.nvdash = {
+  load_on_startup = true
+}
+
 
 return M
