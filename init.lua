@@ -29,7 +29,6 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require('leap').create_default_mappings()
 require "options"
 require "nvchad.autocmds"
 require "configs.keymaps"

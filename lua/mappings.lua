@@ -27,4 +27,8 @@ end
 
 map("i", "<Tab>", "v:lua.smart_tab()", { expr = true, noremap = true, silent = true })
 
+map({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
+map({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
+map({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
+
 
