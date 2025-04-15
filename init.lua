@@ -39,18 +39,6 @@ end)
 
 vim.diagnostic.config({virtual_text = true})
 
--- vim.g.clipboard = {
---   name = 'WslClipboard',
---   copy = {
---     ['+'] = 'clip.exe',
---     ['*'] = 'clip.exe',
---   },
---   paste = {
---     ['+'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---     ['*'] = 'pwsh.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
---   },
---   cache_enabled = 0,
--- }
 
 vim.api.nvim_create_autocmd("BufDelete", {
   callback = function()
@@ -75,4 +63,16 @@ vim.cmd("hi Normal guibg=none")
 vim.cmd("hi NormalFloat guibg=none")
 vim.cmd("hi LineNr guibg=none")
 vim.cmd("hi SignColum guibg=none")
+
+
+function _G.smart_tab()
+  local col = vim.fn.col(".")
+  local line = vim.fn.getline(".")
+  local next_char = line:sub(col, col)
+  if next_char:match("[%]%)%}\"'>]") then
+    return "<Right>"
+  else
+    return "<Tab>"
+  end
+end
 
