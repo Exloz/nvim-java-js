@@ -31,4 +31,9 @@ map({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
 map({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
 map({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
 
+local nomap = vim.keymap.del
+
+nomap("n", "<leader>e")
+nomap("n", "<leader>fb")
+map("n", "<leader>fr", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 

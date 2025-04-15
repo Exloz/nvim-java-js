@@ -62,10 +62,11 @@ keymap.set('n', '<leader>ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 -- 📌 Símbolos del archivo y del workspace con Telescope
 keymap.set('n', '<leader>tr', '<cmd>Telescope lsp_document_symbols<CR>', opts) -- Símbolos del documento
-keymap.set('n', '<leader>fj', '<cmd>Telescope git_files<CR>', opts)
+keymap.set('n', '<leader>fd', '<cmd>Telescope git_files<CR>', opts)
 
 -- 📌 Diagnósticos con Telescope
-keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<CR>')
+keymap.set('n', '<leader>fx', '<cmd>Telescope diagnostics<CR>')
+
 keymap.set('n', '<leader>fe', function()
   require('telescope.builtin').diagnostics({
     severity = vim.diagnostic.severity.ERROR,  -- 🔴 Solo errores
