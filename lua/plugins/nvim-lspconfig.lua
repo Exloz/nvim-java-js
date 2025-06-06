@@ -23,6 +23,8 @@ return {
         'jsonls',
         'marksman',
         'yamlls',
+        'typescript',
+        'javascript'
       }
     })
 
@@ -40,16 +42,16 @@ return {
     local lsp_attach = function(client, bufnr)
     end
 
-    require('mason-lspconfig').setup_handlers({
-      function(server_name)
-        if server_name ~= 'jdtls' then
-          lspconfig[server_name].setup({
-            on_attach = lsp_attach,
-            capabilities = lsp_capabilities,
-          })
-        end
-      end
-    })
+    -- require('mason-lspconfig').setup_handlers({
+    --   function(server_name)
+    --     if server_name ~= 'jdtls' then
+    --       lspconfig[server_name].setup({
+    --         on_attach = lsp_attach,
+    --         capabilities = lsp_capabilities,
+    --       })
+    --     end
+    --   end
+    -- })
 
     lspconfig.lua_ls.setup {
       settings = {
